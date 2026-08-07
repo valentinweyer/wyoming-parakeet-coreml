@@ -1,4 +1,4 @@
-# wyoming-parakeet-coreml-de
+# wyoming-parakeet-coreml
 
 A [Wyoming protocol](https://github.com/OHF-Voice/wyoming) speech-to-text server for Home Assistant, running [primeline's German fine-tune](https://huggingface.co/primeline/parakeet-primeline) of NVIDIA's Parakeet TDT 0.6B v3 on the **Apple Neural Engine** via [FluidAudio](https://github.com/FluidInference/FluidAudio) — not the GPU, not the cloud.
 
