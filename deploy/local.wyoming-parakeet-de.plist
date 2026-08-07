@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>local.wyoming-parakeet-de</string>
+
+    <!-- The four flags below are the German primeline fine-tune this
+         project ships by default. If you've pointed --models-dir at a
+         different FluidAudio-compatible v3 model, update --model-name,
+         --language, --attribution-name and --attribution-url to match —
+         see the main README for the full flag list. -->
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/wyoming-parakeet-de/bin/WyomingParakeet</string>
+        <string>--models-dir</string>
+        <string>/usr/local/wyoming-parakeet-de/models/parakeet-tdt-0.6b-v3</string>
+        <string>--port</string>
+        <string>10300</string>
+        <string>--compute-units</string>
+        <string>ane</string>
+        <string>--model-name</string>
+        <string>parakeet-primeline-de</string>
+        <string>--language</string>
+        <string>de</string>
+        <string>--attribution-name</string>
+        <string>primeline / NVIDIA / FluidInference</string>
+        <string>--attribution-url</string>
+        <string>https://huggingface.co/primeline/parakeet-primeline</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
+    <!-- Interactive, not Background/Standard: keeps the process off App Nap /
+         throttled QoS scheduling, which otherwise adds latency to a
+         supposedly-always-on inference service. This is a LaunchAgent (runs
+         in the logged-in user's session), not a LaunchDaemon, because the
+         Apple Neural Engine is not reliably usable from the system-level
+         daemon context — CoreML falls back to CPU/GPU or fails outright. -->
+    <key>ProcessType</key>
+    <string>Interactive</string>
+
+    <key>StandardOutPath</key>
+    <string>/usr/local/wyoming-parakeet-de/logs/stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/usr/local/wyoming-parakeet-de/logs/stderr.log</string>
+
+    <key>WorkingDirectory</key>
+    <string>/usr/local/wyoming-parakeet-de</string>
+</dict>
+</plist>

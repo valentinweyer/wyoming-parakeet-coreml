@@ -1,0 +1,11 @@
+.build/
+.swiftpm/
+.DS_Store
+
+# Local install artifacts — the deploy/ scripts populate these on the
+# machine you're deploying to; they don't belong in the repo.
+deploy/bin/*
+!deploy/bin/.gitkeep
+deploy/models/*
+!deploy/models/.gitkeep
+deploy/logs/
