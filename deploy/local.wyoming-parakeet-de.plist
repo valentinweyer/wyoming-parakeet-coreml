@@ -6,9 +6,9 @@
     <string>local.wyoming-parakeet-de</string>
 
     <!-- The four flags below are the German primeline fine-tune this
-         project ships by default. If you've pointed --models-dir at a
-         different FluidAudio-compatible v3 model, update --model-name,
-         --language, --attribution-name and --attribution-url to match —
+         project ships by default. If you've selected a different
+         FluidAudio-compatible v3 model directory, update the model name,
+         language, attribution name and attribution URL to match —
          see the main README for the full flag list. -->
     <key>ProgramArguments</key>
     <array>
