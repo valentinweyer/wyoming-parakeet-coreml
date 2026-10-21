@@ -61,7 +61,9 @@ func buildInfoData(_ model: ModelInfo) -> [String: Any] {
         "version": model.version,
         "models": [modelEntry],
         "supports_transcript_streaming": false,
-        "requires_external_vad": false,
+        // Transcription starts only after audio-stop. HA must detect silence
+        // and finish satellite audio instead of waiting for server-side VAD.
+        "requires_external_vad": true,
         "prefers_auto_gain_enabled": false,
         "prefers_noise_reduction_enabled": false,
     ]

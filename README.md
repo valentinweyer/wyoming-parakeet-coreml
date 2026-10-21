@@ -62,6 +62,12 @@ The defaults above describe the bundled German model — override them to match 
 - **Wyoming framing** is a strict byte-counting parser (JSON header line + optional length-prefixed data + optional length-prefixed payload) — not delimiter-scanning past the header, so transcript text or audio payloads containing arbitrary bytes can never desynchronize it.
 - **One shared `AsrManager`** (a `TranscriptionService` actor) serves every connection; loading the CoreML models costs real time and memory, so it happens once at startup, not per-connection.
 - **Decoder state is per-utterance**, created fresh and discarded after each `audio-stop` — reusing it across utterances would leak context between unrelated voice commands.
+- **Home Assistant handles end-of-speech detection.** The server advertises
+  `requires_external_vad: true` because batch transcription waits for `audio-stop`.
+  Advertising `false` leaves a live satellite stream waiting indefinitely, even
+  though tests that explicitly finish their audio can succeed. After updating
+  an existing installation, reload its Wyoming Protocol integration in Home
+  Assistant to refresh the advertised capabilities.
 - **`DownloadUtils.enforceOffline = true`** is set before any FluidAudio call. Without it, a model-load failure makes FluidAudio delete the model folder and silently re-download the *official English* v3 from HuggingFace — actively destructive if you're pointing it at a custom local bundle.
 - **A dedicated `DispatchQueue`, not `.main`**, drives all `NWListener`/`NWConnection` callbacks. `DispatchQueue.main` needs an actively-pumped run loop (`RunLoop.main.run()` / `dispatchMain()`) to deliver its callbacks, and a headless `@main static func main() async` that just parks on `Task.sleep` doesn't provide one — callbacks fire once or twice from residual startup scheduling and then silently stop.
 - Sub-0.3s audio clips are zero-padded rather than rejected (FluidAudio's minimum-duration guard), since HA's VAD can hand this server clips shorter than that.

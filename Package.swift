@@ -14,6 +14,10 @@ let package = Package(
         .executableTarget(
             name: "WyomingParakeet",
             dependencies: [.product(name: "FluidAudio", package: "FluidAudio")]
+        ),
+        .testTarget(
+            name: "WyomingParakeetTests",
+            dependencies: ["WyomingParakeet"]
         )
     ]
 )
